@@ -1,13 +1,15 @@
 # Salsify-Code-Excercise
 
-## Development server
-Ensure you are using Node `v16.10.0 or greater`
-Navigate in to the `/salsify-code-exercise` folder and
-Run `npm run start` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Setup
+Follow the steps below to setup and run the application:
+1. Ensure you are using Node `v16.10.0 or greater`
+2. Navigate in to the `/salsify-code-exercise` folder
+3. Run `npm install`
+4. Run `npm run start` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
-OR
+    **OR**
 
-Run `docker-compose up` if you prefer to use docker.
+5. Run `docker-compose up` if you prefer to use docker (will require Docker to be installed and running on local machine).
 
 ## Work Flow
  - Created Typescript version of the data service provided
