@@ -1,0 +1,31 @@
+<div class="product-sort-container">
+    <div class="sort-control-container"> 
+        <select name="Property" #propertyField (change)="setProperty(propertyField.value)">
+            <option value="" disabled selected>Select a Property...</option>
+            <option *ngFor="let property of properties" value="{{property.id}}">{{property.name}}</option>
+        </select>
+
+        <select #operatorField *ngIf="validOperators.length > 0" (change)='setOperator(operatorField.value)'>
+            <option value="" disabled selected>Select an Operator...</option>
+            <option *ngFor="let operator of validOperators" value="{{operator.id}}">{{operator.text}}</option>
+        </select>
+
+        <select *ngIf="validOperators.length > 0">
+            <option value="" disabled selected>Select a Category...</option>
+        </select>
+
+        <button>Clear</button>
+    </div>
+
+    <div class="product-properties">
+        <div class="property-name" *ngFor="let property of properties">{{property.name}}</div>
+    </div>
+
+    <div class="products-container">
+        <div class="product-row" *ngFor="let product of productsToDisplay">
+            <div class="product-detail" *ngFor="let property of properties; let i = index">
+                {{product.property_values[i]?.value || null}}
+            </div>
+        </div>
+    </div>
+</div>
