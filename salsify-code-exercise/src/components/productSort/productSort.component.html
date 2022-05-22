@@ -1,20 +1,36 @@
 <div class="product-sort-container">
-    <div class="sort-control-container"> 
-        <select name="Property" #propertyField (change)="setProperty(propertyField.value)">
+    <div class="sort-control-container" [formGroup]="sortForm"> 
+        <select [formControlName]="'sortProperty'" (change)="setProperty()">
             <option value="" disabled selected>Select a Property...</option>
             <option *ngFor="let property of properties" value="{{property.id}}">{{property.name}}</option>
         </select>
 
-        <select #operatorField *ngIf="validOperators.length > 0" (change)='setOperator(operatorField.value)'>
+        <select [formControlName]="'sortOperator'" *ngIf="validOperators.length > 0" (change)='setOperator()'>
             <option value="" disabled selected>Select an Operator...</option>
             <option *ngFor="let operator of validOperators" value="{{operator.id}}">{{operator.text}}</option>
         </select>
 
-        <select *ngIf="validOperators.length > 0">
-            <option value="" disabled selected>Select a Category...</option>
+        <!-- @NOTE: Could be improved with a directive to limit input characters -->
+        <input
+            *ngIf="additionInputRequired && additionInputRequired !== 'enumerated' || additionInputRequired && (additionInputRequired === 'enumerated' && activeOperator !== 'in')"
+            #textSearch
+            [formControlName]="'textSearch'"
+            type="text"
+            maxlength="50"
+            placeholder="Search Text"
+            (input)="inputSearch(textSearch.value)"
+        />
+
+        <select
+            multiple
+            *ngIf="additionInputRequired && activeOperator === 'in'  && additionInputRequired === 'enumerated'"
+            [formControlName]="'enumeratedSearch'"
+            (change)='enumSearch()'>
+            <option value="" disabled selected>Select Search Options...</option>
+            <option *ngFor="let enum of activePropertyEnums" value="{{enum}}">{{enum}}</option>
         </select>
 
-        <button>Clear</button>
+        <button (click)="clearSortForm()">Clear</button>
     </div>
 
     <div class="product-properties">
@@ -26,6 +42,10 @@
             <div class="product-detail" *ngFor="let property of properties; let i = index">
                 {{product.property_values[i]?.value || null}}
             </div>
+        </div>
+
+        <div class="empty-results-container" *ngIf="productsToDisplay.length === 0">
+            <p>No Products Match This Criteria</p>
         </div>
     </div>
 </div>
