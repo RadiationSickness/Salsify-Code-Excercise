@@ -1,3 +1,21 @@
+export enum OperatorEnum {
+    equals = 'equals',
+    greaterThan = 'greater_than',
+    lessThan = 'less_than',
+    any = 'any',
+    none = 'none',
+    in = 'in',
+    contains = 'contains',
+}
+
+export enum ComparisonOperator {
+    equals = 'equals',
+    greaterThan = 'greater_than',
+    lessThan = 'less_than',
+    in = 'in',
+    contains = 'contains',
+}
+
 enum ColorsEnum {
     brown = 'brown',
     silver = 'silver',
